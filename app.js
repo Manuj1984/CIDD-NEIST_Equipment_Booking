@@ -5,7 +5,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyDJZd4zyYVwTJP-3H1LeFJ7JFZ5xhKwJZM",
   authDomain: "ciddneistequipmentbooking.firebaseapp.com",
   projectId: "ciddneistequipmentbooking",
-  storageBucket: "ciddneistequipmentbooking.firebasestorage.app",
+  storageBucket: "ciddneistequipmentbooking.appspot.com",
   messagingSenderId: "259132812634",
   appId: "1:259132812634:web:60aaa47d89ffbda4561763",
   measurementId: "G-Y8W1GC57JW"
