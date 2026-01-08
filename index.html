@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Department Equipment Booking</title>
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <!-- FullCalendar -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js"></script>
+</head>
+<body>
+  <h1>CIDD-NEIST Equipment Booking</h1>
+
+  <!-- Booking Form -->
+  <div id="booking-form">
+    <h2>Book Equipment</h2>
+    <label>Equipment:</label>
+    <select id="equipment-select"></select><br>
+    <label>Date:</label>
+    <input type="date" id="date"><br>
+    <label>Time Slot:</label>
+    <input type="text" id="time-slot" placeholder="e.g., 10:00-12:00"><br>
+    <label>Your Name:</label>
+    <input type="text" id="user-name"><br>
+    <button id="book-btn">Book</button>
+  </div>
+
+  <!-- Calendar -->
+  <div id="calendar-container">
+    <h2>Booking Calendar</h2>
+    <div id="calendar"></div>
+  </div>
+
+  <!-- Admin Panel -->
+  <div id="admin-panel">
+    <h2>Admin: Manage Equipment</h2>
+    <label>Admin Password:</label>
+    <input type="password" id="admin-password" placeholder="Enter password"><br>
+
+    <div id="admin-actions" style="display:none;">
+      <h3>Add Equipment</h3>
+      <input type="text" id="equip-name" placeholder="Equipment Name"><br>
+      <input type="text" id="equip-desc" placeholder="Description (optional)"><br>
+      <input type="number" id="equip-qty" placeholder="Quantity"><br>
+      <button id="add-equip-btn">Add Equipment</button>
+
+      <h3>Remove Equipment</h3>
+      <select id="remove-equip-select"></select><br>
+      <button id="remove-equip-btn">Remove Selected Equipment</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
