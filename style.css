@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* ===== General Body ===== */
 body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background:#f0f2f5; margin:0; padding:20px; color:#333; }
 h2,h3 { margin-top:30px; color:#222; }
@@ -38,4 +39,31 @@ button { cursor:pointer; transition: all 0.2s ease; }
   input, select, button{ width:100%; max-width:100%; }
   #calendar{ padding:5px; }
   .booking-table th, .booking-table td{ font-size:12px; padding:8px; }
+=======
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+h1, h2 {
+  color: #333;
+}
+label, input, select, button {
+  display: block;
+  margin: 5px 0;
+}
+button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+#booking-form, #calendar-container, #admin-panel {
+  margin-bottom: 30px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+#calendar {
+  max-width: 100%;
+  margin-top: 10px;
+>>>>>>> f9af274891788eac3da61855226ef3711bba779f
 }
