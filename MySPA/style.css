@@ -1,0 +1,41 @@
+/* ===== General Body ===== */
+body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background:#f0f2f5; margin:0; padding:20px; color:#333; }
+h2,h3 { margin-top:30px; color:#222; }
+
+/* ===== Form Elements ===== */
+label { display:block; margin:10px 0 5px; font-weight:600; }
+input, select, button { padding:10px; margin-bottom:15px; border-radius:6px; border:1px solid #ccc; width:100%; max-width:400px; box-sizing:border-box; font-size:14px; }
+button { cursor:pointer; transition: all 0.2s ease; }
+#book-btn, #add-equip-btn, #remove-equip-btn { background-color:#007bff; color:#fff; border:none; padding:10px 15px; border-radius:6px; font-weight:600; }
+#book-btn:hover, #add-equip-btn:hover, #remove-equip-btn:hover { background-color:#0069d9; }
+
+/* ===== Calendar ===== */
+#calendar { max-width:100%; margin:20px auto; background:#fff; border-radius:8px; padding:10px; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
+
+/* ===== Table ===== */
+.booking-table { width:100%; border-collapse:collapse; margin-top:20px; background:#fff; border-radius:8px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
+.booking-table th, .booking-table td { padding:12px; text-align:left; font-size:14px; }
+.booking-table th { background-color:#007bff; color:#fff; text-transform:uppercase; font-size:13px; }
+.booking-table tr:nth-child(even){ background:#f9f9f9; }
+
+/* Status color coding */
+.booking-table tr.pending td { background-color:#fff3cd; }
+.booking-table tr.approved td { background-color:#d4edda; }
+.booking-table tr.rejected td { background-color:#f8d7da; }
+
+/* Approve/Reject Buttons */
+.approve-btn { background:#28a745; color:#fff; border:none; padding:6px 12px; border-radius:4px; margin-right:5px; }
+.reject-btn { background:#dc3545; color:#fff; border:none; padding:6px 12px; border-radius:4px; }
+.approve-btn:hover { background:#218838; }
+.reject-btn:hover { background:#c82333; }
+
+/* Admin Section */
+#admin-actions { display:none; margin-top:20px; padding:20px; background:#fff; border-radius:8px; box-shadow:0 3px 10px rgba(0,0,0,0.1); }
+.filter-group { margin-bottom:20px; max-width:400px; }
+
+/* Responsive */
+@media (max-width:768px){
+  input, select, button{ width:100%; max-width:100%; }
+  #calendar{ padding:5px; }
+  .booking-table th, .booking-table td{ font-size:12px; padding:8px; }
+}

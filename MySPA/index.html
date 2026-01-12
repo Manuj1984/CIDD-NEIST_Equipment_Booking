@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CIDD Equipment Booking</title>
+
+  <!-- FullCalendar CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+
+  <!-- FullCalendar JS -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js"></script>
+
+  <!-- App JS -->
+  <script src="app.js" defer></script>
+</head>
+<body>
+
+  <h2>CIDD Equipment Booking</h2>
+
+  <!-- Booking Form -->
+  <div id="booking-form">
+    <label for="equipment-select">Select Equipment:</label>
+    <select id="equipment-select"></select>
+
+    <label for="date">Select Date:</label>
+    <input type="date" id="date">
+
+    <label for="time-slot">Time Slot:</label>
+    <input type="text" id="time-slot" placeholder="HH:MM-HH:MM">
+
+    <label for="user-name">Your Name:</label>
+    <input type="text" id="user-name">
+
+    <label for="division">Division:</label>
+    <input type="text" id="division" placeholder="Your Division">
+
+    <label for="purpose">Purpose:</label>
+    <input type="text" id="purpose" placeholder="Optional">
+
+    <button id="book-btn">Book Equipment</button>
+  </div>
+
+  <!-- Calendar -->
+  <div id="calendar"></div>
+
+  <!-- Admin Section -->
+  <h3>Admin Login</h3>
+  <input type="password" id="admin-password" placeholder="Enter Admin Password">
+
+  <div id="admin-actions">
+    <h3>Pending Booking Requests</h3>
+
+    <div class="filter-group">
+      <label for="division-filter">Filter by Division:</label>
+      <select id="division-filter">
+        <option value="All">All</option>
+      </select>
+    </div>
+
+    <table class="booking-table">
+      <thead>
+        <tr>
+          <th>Token</th>
+          <th>Equipment</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>User</th>
+          <th>Division</th>
+          <th>Purpose</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="pending-bookings-table"></tbody>
+    </table>
+
+    <h3>Manage Equipments</h3>
+    <label for="equip-name">Name:</label>
+    <input type="text" id="equip-name">
+    <label for="equip-desc">Description:</label>
+    <input type="text" id="equip-desc">
+    <label for="equip-qty">Quantity:</label>
+    <input type="number" id="equip-qty">
+    <button id="add-equip-btn">Add Equipment</button>
+
+    <label for="remove-equip-select">Remove Equipment:</label>
+    <select id="remove-equip-select"></select>
+    <button id="remove-equip-btn">Remove Equipment</button>
+  </div>
+
+  <!-- App JS -->
+  <script src="app.js"></script>
+
+  <script>
+    // =========================
+    // Division Filter Logic
+    // =========================
+    const divisionFilter = document.getElementById("division-filter");
+    const tableBody = document.getElementById("pending-bookings-table");
+
+    // Function to refresh the pending bookings table with optional division filter
+    function refreshPendingBookings() {
+      const selectedDivision = divisionFilter.value || "All";
+      tableBody.innerHTML = "";
+      db.collection("bookings")
+        .where("status", "==", "pending")
+        .get()
+        .then(snapshot => {
+          snapshot.forEach(doc => {
+            const data = doc.data();
+            if (selectedDivision === "All" || data.user.division === selectedDivision) {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+                <td>${data.tokenNo}</td>
+                <td>${data.equipment.equipmentName}</td>
+                <td>${data.booking.date}</td>
+                <td>${data.booking.timeSlot}</td>
+                <td>${data.user.name}</td>
+                <td>${data.user.division}</td>
+                <td>${data.purpose}</td>
+                <td>
+                  <button class="approve-btn" onclick="approveBooking('${doc.id}')">Approve</button>
+                  <button class="reject-btn" onclick="rejectBooking('${doc.id}')">Reject</button>
+                </td>
+              `;
+              tableBody.appendChild(row);
+            }
+          });
+        });
+    }
+
+    divisionFilter.addEventListener("change", refreshPendingBookings);
+
+    // Function to populate Division filter dynamically
+    function updateDivisionFilter() {
+      const divisions = new Set();
+      db.collection("bookings").get().then(snapshot => {
+        snapshot.forEach(doc => {
+          const div = doc.data().user.division;
+          if (div) divisions.add(div);
+        });
+
+        // Save currently selected division
+        const currentSelection = divisionFilter.value;
+
+        divisionFilter.innerHTML = `<option value="All">All</option>`;
+        divisions.forEach(div => {
+          const opt = document.createElement("option");
+          opt.value = div;
+          opt.textContent = div;
+          divisionFilter.appendChild(opt);
+        });
+
+        // Restore previous selection if still valid
+        if (currentSelection && [...divisions].includes(currentSelection)) {
+          divisionFilter.value = currentSelection;
+        }
+      });
+    }
+
+    // Call this after loading pending bookings or adding new booking
+    function refreshAdminTable() {
+      updateDivisionFilter();
+      refreshPendingBookings();
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+# Ignore Node runtime and tools
+node_modules/
+node.exe
+npm
+npm.cmd
+npm.ps1
+npx
+npx.cmd
+npx.ps1
+corepack
+corepack.cmd
+nodevars.bat
+install_tools.bat
+
+# Firebase
+.firebase/
+
+# OS files
+Thumbs.db
+.DS_Store
